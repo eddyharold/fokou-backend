@@ -81,11 +81,10 @@ public class ProjectController {
             	_project.setDuration(project.getDuration());
             	_project.setFunding(project.getFunding());
             	_project.setDescription(project.getDescription());
-            	_project.setUser(project.getUser());
             	_project = projectRepository.save(_project);
             } else {
-                logger.info(String.format("Project: " + id + " not found in the database."));
-                return new ResponseEntity<>(String.format("Project: " + id + " not found."), HttpStatus.OK);
+                logger.info(String.format("Project: " + project.getName() + " not found in the database."));
+                return new ResponseEntity<>(String.format("Project: " + project.getName() + " not found."), HttpStatus.OK);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -99,7 +98,7 @@ public class ProjectController {
 	public ResponseEntity<?> delete(@PathVariable("id") long id){
 		try {
 			projectRepository.deleteById(id);
-            return new ResponseEntity<>(String.format("Project: " + id + " has been removed."), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(String.format("Project: " + id + " not found."), HttpStatus.INTERNAL_SERVER_ERROR);
